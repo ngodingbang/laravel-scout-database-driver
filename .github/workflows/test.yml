@@ -76,15 +76,3 @@ jobs:
           vendor/bin/pest --verbose --coverage-clover build/logs/clover.xml
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-
-      - name: Upload scrutinizer coverage
-        uses: sudo-bot/action-scrutinizer@latest
-        with:
-          cli-args: "--format=php-clover build/logs/clover.xml"
-
-      - name: Upload coverage results to coveralls
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          composer global require php-coveralls/php-coveralls
-          php-coveralls --coverage_clover=build/logs/clover.xml -v
