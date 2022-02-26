@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/user');
+Route::redirect('/', '/user/query');
 
 Route::prefix('/user')->name('user.')->controller(UserController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
+    Route::get('/query', 'indexUsingQuery')->name('index-query');
+    Route::get('/scout', 'indexUsingScout')->name('index-scout');
 });
